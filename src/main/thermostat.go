@@ -1,7 +1,5 @@
 package main
 
-import sc "dht11Controller"
-
 import (
     "fmt"
     "time"
@@ -13,8 +11,15 @@ func main() {
     go StartRestAPI()
 
     for {
-        a := sc.ReadValues()
-        fmt.Println("Hello world ", a.Temp)
+        err := AddHist(GetInfo())
+        checkErr(err)
+
         time.Sleep(2 * time.Second)
+    }
+}
+
+func checkErr(err error) {
+    if err != nil {
+        panic(err)
     }
 }

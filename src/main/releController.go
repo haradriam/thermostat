@@ -1,4 +1,4 @@
-package releController
+package main
 
 func StartHeating() {
 

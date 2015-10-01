@@ -1,4 +1,4 @@
-package dht11Controller
+package main
 
 type EmbInfo struct {
     Temp        float32
