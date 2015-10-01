@@ -12,7 +12,9 @@ func main() {
 
     go StartRestAPI()
 
-    a := sc.ReadValues()
-    fmt.Println("Hello world ", a.Temp)
-    time.Sleep(10 * time.Second)
+    for {
+        a := sc.ReadValues()
+        fmt.Println("Hello world ", a.Temp)
+        time.Sleep(2 * time.Second)
+    }
 }
