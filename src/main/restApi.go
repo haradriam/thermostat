@@ -5,7 +5,7 @@ import (
     "net/http"
 )
 
-func main() {
+func StartRestAPI() {
     http.HandleFunc("/getinfo", GetInfo)
 
     log.Fatal(http.ListenAndServe(":8080", nil))
