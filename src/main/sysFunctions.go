@@ -4,25 +4,6 @@ import (
     "time"
 )
 
-type EnvInfo struct {
-    Temp    float32
-    Hum     float32
-}
-
-type TimeInfo struct {
-    Day     int
-    Month   int
-    Year    int
-    Hour    int
-    Min     int
-}
-
-type SysInfo struct {
-    Env     EnvInfo
-    Time    TimeInfo
-    Heating bool
-}
-
 func GetInfo() SysInfo{
     timestamp := time.Now()
     time := TimeInfo{
