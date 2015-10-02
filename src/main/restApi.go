@@ -7,6 +7,7 @@ import (
 
 func StartRestAPI() {
     http.HandleFunc("/getinfo", RestGetInfo)
+    http.HandleFunc("/getevents", RestGetEvents)
     http.HandleFunc("/setevents", RestSetEvents)
 
     log.Fatal(http.ListenAndServe(":8080", nil))

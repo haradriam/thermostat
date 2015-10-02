@@ -11,6 +11,13 @@ func RestGetInfo(w http.ResponseWriter, r *http.Request) {
     json.NewEncoder(w).Encode(GetInfo())
 }
 
+func RestGetEvents(w http.ResponseWriter, r *http.Request) {
+    eventList, err := ReadEvents()
+    checkErr(err)
+
+    json.NewEncoder(w).Encode(eventList)
+}
+
 func RestSetEvents(w http.ResponseWriter, r *http.Request) {
     body, err := ioutil.ReadAll(r.Body)
     checkErr(err)
@@ -27,5 +34,5 @@ func RestSetEvents(w http.ResponseWriter, r *http.Request) {
         eventList = append(eventList, event)
     }
 
-    AddEvent(eventList)
+    AddEvents(eventList)
 }
