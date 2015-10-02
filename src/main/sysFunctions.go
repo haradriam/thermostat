@@ -4,7 +4,7 @@ import (
     "time"
 )
 
-func GetInfo() SysInfo{
+func GetSysInfo() SysInfo{
     timestamp := time.Now()
     time := TimeInfo{
         Day: time.Time.Day(timestamp),
@@ -12,6 +12,7 @@ func GetInfo() SysInfo{
         Year: time.Time.Year(timestamp),
         Hour: time.Time.Hour(timestamp),
         Min: time.Time.Minute(timestamp),
+        DayOfWeek: int(time.Time.Weekday(timestamp)),
     }
 
     env := EnvInfo {

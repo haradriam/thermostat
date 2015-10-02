@@ -8,11 +8,11 @@ import (
 )
 
 func RestGetInfo(w http.ResponseWriter, r *http.Request) {
-    json.NewEncoder(w).Encode(GetInfo())
+    json.NewEncoder(w).Encode(GetSysInfo())
 }
 
 func RestGetEvents(w http.ResponseWriter, r *http.Request) {
-    eventList, err := ReadEvents()
+    eventList, err := DbReadEvents()
     checkErr(err)
 
     json.NewEncoder(w).Encode(eventList)
@@ -34,5 +34,5 @@ func RestSetEvents(w http.ResponseWriter, r *http.Request) {
         eventList = append(eventList, event)
     }
 
-    AddEvents(eventList)
+    DbAddEvents(eventList)
 }

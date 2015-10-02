@@ -6,11 +6,12 @@ type EnvInfo struct {
 }
 
 type TimeInfo struct {
-    Day     int
-    Month   int
-    Year    int
-    Hour    int
-    Min     int
+    Day         int
+    Month       int
+    Year        int
+    Hour        int
+    Min         int
+    DayOfWeek   int
 }
 
 type SysInfo struct {
@@ -20,15 +21,9 @@ type SysInfo struct {
 }
 
 type EventEntry struct {
-    Id          int
     StartTemp   float32
-    Monday      int
-    Tuesday     int
-    Wednesday   int
-    Thursday    int
-    Friday      int
-    Saturday    int
-    Sunday      int
+    Periodic    string
+    ByTime      int
     StartHour   int
     StartMin    int
     EndHour     int
