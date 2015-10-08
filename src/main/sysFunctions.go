@@ -6,6 +6,7 @@ import (
     "os"
 )
 
+var configFile = "./conf.json"
 var config Config
 
 /*GetSysInfo: Get system information and return it
@@ -50,7 +51,7 @@ func GetConfig() Config {
 ****************************************************************************************************/
 func SetConfig(newConfig Config) {
     //Create the file
-    file, err := os.Create("conf.json")
+    file, err := os.Create(configFile)
     checkErr(err)
     defer file.Close()
 
@@ -69,7 +70,7 @@ func SetConfig(newConfig Config) {
 ****************************************************************/
 func ConfigFirstRead() {
     //Open configuration file
-    file, err := os.Open("conf.json")
+    file, err := os.Open(configFile)
     checkErr(err)
     defer file.Close()
 
