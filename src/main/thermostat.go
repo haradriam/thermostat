@@ -26,7 +26,7 @@ func main() {
         sysInfo := GetSysInfo()
 
         //Check if the maximum temperature has been reached
-        if (sysInfo.Env.Temp > GetConfig().MaxTemp) {
+        if (sysInfo.Env.Temp > GetConfig().MaxTemp) && (sysInfo.Heating == true) {
             StopHeating()
         } else {
             //Check each event to find if it meets the conditions to start the heating
@@ -38,7 +38,11 @@ func main() {
             }
 
             //Check if any event has met the conditions to start the heating
-            if cond == false { StopHeating() } else { StartHeating() }
+            if cond == false {
+                if sysInfo.Heating == true { StopHeating() }
+            } else {
+                if sysInfo.Heating == false { StartHeating() }
+            }
         }
 
         //Wait for the next check
