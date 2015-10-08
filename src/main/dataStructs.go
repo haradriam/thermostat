@@ -27,11 +27,12 @@ type EnvInfo struct {
 /*Time information
 ******************/
 type TimeInfo struct {
-    Day         int         //Day of the month
-    Month       int         //Month of the year
     Year        int         //Year number
+    Month       int         //Month of the year
+    Day         int         //Day of the month
     Hour        int         //Hour
     Min         int         //Minute
+    Sec         int         //Second
     DayOfWeek   int         //Day of the week (1 ... 7)
 }
 
@@ -46,4 +47,18 @@ type EventEntry struct {
     EndHour     int         //Maximum hour to take this event into account
     EndMin      int         //Maximum minute to take this event into account
     Active      int         //Indicates if this event is enabled or not
+}
+
+/*Usage entry
+*************/
+type UsageEntry struct {
+    Year        int         //Year number
+    Month       int         //Month of the year
+    Day         int         //Day of the month
+    StartHour   int         //Start hour
+    StartMin    int         //Start minute
+    StartSec    int         //Start second
+    EndHour     int         //End hour
+    EndMin      int         //End minute
+    EndSec      int         //End second
 }

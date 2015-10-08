@@ -14,12 +14,13 @@ var config Config
 func GetSysInfo() SysInfo {
     //Get time information
     timestamp := time.Now()
-    time := TimeInfo{
+    time := TimeInfo {
         Day: time.Time.Day(timestamp),
         Month: int(time.Time.Month(timestamp)),
         Year: time.Time.Year(timestamp),
         Hour: time.Time.Hour(timestamp),
         Min: time.Time.Minute(timestamp),
+        Sec: time.Time.Second(timestamp),
         DayOfWeek: int(time.Time.Weekday(timestamp)),
     }
 
@@ -35,7 +36,7 @@ func GetSysInfo() SysInfo {
     info := SysInfo {
         Env: env,
         Time: time,
-        Heating: false,
+        Heating: true,
     }
 
     return info

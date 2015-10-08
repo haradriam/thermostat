@@ -14,11 +14,11 @@ func DbAddHist(info SysInfo) error {
     defer db.Close()
 
     //Command to run in the database: insert new record
-    stmt, err := db.Prepare("INSERT INTO HISTRECORDS(DAY, MONTH, YEAR, HOUR, MINUTE, TEMP, HUM) VALUES(?,?,?,?,?,?,?)")
+    stmt, err := db.Prepare("INSERT INTO HISTRECORDS(YEAR, MONTH, DAY, HOUR, MINUTE, TEMP, HUM) VALUES(?,?,?,?,?,?,?)")
     checkErr(err)
 
     //Execute the command: insert new record
-    _, err = stmt.Exec(info.Time.Day, info.Time.Month, info.Time.Year, info.Time.Hour, info.Time.Min, info.Env.Temp, info.Env.Hum)
+    _, err = stmt.Exec(info.Time.Year, info.Time.Month, info.Time.Day, info.Time.Hour, info.Time.Min, info.Env.Temp, info.Env.Hum)
     checkErr(err)
 
     return err
@@ -80,4 +80,20 @@ func DbReadEvents() ([]EventEntry, error) {
     }
 
     return eventList, err
+}
+
+/*DbAddUsageRecord: Store the status of the heating in the database
+*******************************************************************/
+func DbAddUsageRecord(usageEntry UsageEntry) {
+    //Open database
+    db, err := sql.Open("sqlite3", GetConfig().DBPath)
+    checkErr(err)
+    defer db.Close()
+
+    //Command to run in the database: insert new usage record
+    stmt, err := db.Prepare("INSERT INTO USAGE(YEAR, MONTH, DAY, START_HOUR, START_MIN, START_SEC, END_HOUR, END_MIN, END_SEC) VALUES(?,?,?,?,?,?,?,?,?)")
+    checkErr(err)
+
+    //Execute the command: insert new usage record
+    _, err = stmt.Exec(usageEntry.Year, usageEntry.Month, usageEntry.Day, usageEntry.StartHour, usageEntry.StartMin, usageEntry.StartSec, usageEntry.EndHour, usageEntry.EndMin, usageEntry.EndSec)
 }
