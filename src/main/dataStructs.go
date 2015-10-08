@@ -6,6 +6,7 @@ type Config struct {
     DBPath      string      //Path to the system database
     PerRecords  int         //Period to write new record in the database
     PerChecks   int         //Period to check the conditions to enable/disable the heating
+    MaxTemp     float32     //Maximum temperature
 }
 
 /*System information
