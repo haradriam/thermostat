@@ -1,6 +1,7 @@
 package main
 
 var usageEntry UsageEntry
+var heatingStatus bool = false
 
 /*StartHeating: Register the init time and start heating
 ********************************************************/
@@ -15,6 +16,7 @@ func StartHeating() {
     usageEntry.StartSec = sysInfo.Time.Sec
 
     //TODO: Start heating
+    heatingStatus = true
 }
 
 /*StopHeating: Register the stop time and stop the heating
@@ -44,4 +46,9 @@ func StopHeating() {
     DbAddUsageRecord(usageEntry)
 
     //TODO Stop heating
+    heatingStatus = false
+}
+
+func GetHeatingStatus() bool {
+    return heatingStatus
 }

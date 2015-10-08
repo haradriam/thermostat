@@ -25,18 +25,13 @@ func GetSysInfo() SysInfo {
     }
 
     //Get environment information
-    //TODO: Leer informacion real del sensor
-    env := EnvInfo {
-        Temp: 20,
-        Hum: 25.5,
-    }
+    env := ReadDHT11()
 
     //Create new system information struct
-    //TODO: Leer informacion real del rele
     info := SysInfo {
         Env: env,
         Time: time,
-        Heating: true,
+        Heating: GetHeatingStatus(),
     }
 
     return info
