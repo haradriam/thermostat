@@ -25,10 +25,20 @@ func main() {
         //Read system information
         sysInfo := GetSysInfo()
 
-        //Check each event to find if it meets the conditions to start the heating
-        //TODO: Add maximum temperature condition
-        for i := range eventList {
-            checkCondition(eventList[i], sysInfo)
+        //Check if the maximum temperature has been reached
+        if (sysInfo.Env.Temp > GetConfig().MaxTemp) {
+            StopHeating()
+        } else {
+            //Check each event to find if it meets the conditions to start the heating
+            cond := false
+            for i := range eventList {
+                if cond == false {
+                    cond = checkCondition(eventList[i], sysInfo)
+                }
+            }
+
+            //Check if any event has met the conditions to start the heating
+            if cond == false { StopHeating() } else { StartHeating() }
         }
 
         //Wait for the next check
