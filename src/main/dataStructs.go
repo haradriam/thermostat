@@ -1,8 +1,14 @@
 package main
 
+type Config struct {
+    DBPath      string
+    PerRecords  int
+    PerChecks   int
+}
+
 type EnvInfo struct {
-    Temp    float32
-    Hum     float32
+    Temp        float32
+    Hum         float32
 }
 
 type TimeInfo struct {
@@ -15,9 +21,9 @@ type TimeInfo struct {
 }
 
 type SysInfo struct {
-    Env     EnvInfo
-    Time    TimeInfo
-    Heating bool
+    Env         EnvInfo
+    Time        TimeInfo
+    Heating     bool
 }
 
 type EventEntry struct {

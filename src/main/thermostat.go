@@ -5,6 +5,8 @@ import (
 )
 
 func main() {
+    ConfigFirstRead()
+
     go StartRestAPI()
     go writeHist()
 
@@ -17,7 +19,7 @@ func main() {
             checkCondition(eventList[i], sysInfo)
         }
 
-        time.Sleep(30 * time.Second)
+        time.Sleep(time.Duration(GetConfig().PerChecks) * time.Second)
     }
 }
 
@@ -26,7 +28,7 @@ func writeHist() {
         err := DbAddHist(GetSysInfo())
         checkErr(err)
 
-        time.Sleep(30 * time.Minute)
+        time.Sleep(time.Duration(GetConfig().PerRecords) * time.Second)
     }
 }
 

@@ -7,6 +7,8 @@ import (
 
 func StartRestAPI() {
     http.HandleFunc("/getinfo", RestGetInfo)
+    http.HandleFunc("/getconfig", RestGetConfig)
+    http.HandleFunc("/setconfig", RestSetConfig)
     http.HandleFunc("/getevents", RestGetEvents)
     http.HandleFunc("/setevents", RestSetEvents)
 

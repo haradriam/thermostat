@@ -2,7 +2,11 @@ package main
 
 import (
     "time"
+    "encoding/json"
+    "os"
 )
+
+var config Config
 
 func GetSysInfo() SysInfo{
     timestamp := time.Now()
@@ -27,4 +31,32 @@ func GetSysInfo() SysInfo{
     }
 
     return info
+}
+
+func GetConfig() Config {
+    return config
+}
+
+func SetConfig(newConfig Config) {
+    file, err := os.Create("conf.json")
+    checkErr(err)
+    defer file.Close()
+
+    encoder := json.NewEncoder(file)
+
+    err = encoder.Encode(newConfig)
+    checkErr(err)
+
+    config = newConfig
+}
+
+func ConfigFirstRead() {
+    file, err := os.Open("conf.json")
+    checkErr(err)
+    defer file.Close()
+
+    decoder := json.NewDecoder(file)
+
+    err = decoder.Decode(&config)
+    checkErr(err)
 }

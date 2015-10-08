@@ -8,8 +8,9 @@ import (
 func DbAddHist(info SysInfo) error {
     var err error = nil
 
-    db, err := sql.Open("sqlite3", "/home/adrian/workspace/thermostat/bin/THERMOSTAT")
+    db, err := sql.Open("sqlite3", GetConfig().DBPath)
     checkErr(err)
+    defer db.Close()
 
     stmt, err := db.Prepare("INSERT INTO HISTRECORDS(DAY, MONTH, YEAR, HOUR, MINUTE, TEMP, HUM) VALUES(?,?,?,?,?,?,?)")
     checkErr(err)
@@ -17,16 +18,15 @@ func DbAddHist(info SysInfo) error {
     _, err = stmt.Exec(info.Time.Day, info.Time.Month, info.Time.Year, info.Time.Hour, info.Time.Min, info.Env.Temp, info.Env.Hum)
     checkErr(err)
 
-    db.Close()
-
     return err
 }
 
 func DbAddEvents(eventList []EventEntry) error {
     var err error = nil
 
-    db, err := sql.Open("sqlite3", "/home/adrian/workspace/thermostat/bin/THERMOSTAT")
+    db, err := sql.Open("sqlite3", GetConfig().DBPath)
     checkErr(err)
+    defer db.Close()
 
     stmt, err := db.Prepare("DELETE FROM EVENTS")
     checkErr(err)
@@ -42,14 +42,13 @@ func DbAddEvents(eventList []EventEntry) error {
         checkErr(err)
     }
 
-    db.Close()
-
     return err
 }
 
 func DbReadEvents() ([]EventEntry, error) {
-    db, err := sql.Open("sqlite3", "/home/adrian/workspace/thermostat/bin/THERMOSTAT")
+    db, err := sql.Open("sqlite3", GetConfig().DBPath)
     checkErr(err)
+    defer db.Close()
 
     rows, err := db.Query("SELECT * FROM EVENTS")
     checkErr(err)
@@ -64,8 +63,6 @@ func DbReadEvents() ([]EventEntry, error) {
 
         eventList = append(eventList, event)
     }
-
-    db.Close()
 
     return eventList, err
 }
