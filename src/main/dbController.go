@@ -22,6 +22,38 @@ func DbAddHist(info SysInfo) {
     checkErr(err)
 }
 
+/*DbReadHist: Read history records from the database
+****************************************************/
+func DbReadHist(MinDate string, MaxDate string) []HistRec {
+    //Open database
+    db, err := sql.Open("sqlite3", GetConfig().DBPath)
+    checkErr(err)
+    defer db.Close()
+
+    //Command to run in the database: read records between dates
+    rows, err := db.Query("SELECT * FROM HISTRECORDS WHERE DATE BETWEEN \"" +
+                            MinDate +
+                            "\" AND \"" +
+                            MaxDate +
+                            "\"")
+    checkErr(err)
+
+    var recordList []HistRec
+    var record HistRec
+
+    //Tour the affected rows
+    for rows.Next() {
+        //Read new event
+        err = rows.Scan(&record.Date, &record.Temp, &record.Hum)
+        checkErr(err)
+
+        //Add event to the list
+        recordList = append(recordList, record)
+    }
+
+    return recordList
+}
+
 /*DbAddEvents: Add new event list to the database
 *************************************************/
 func DbAddEvents(eventList []EventEntry) {

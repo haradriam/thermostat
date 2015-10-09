@@ -31,6 +31,14 @@ type TimeInfo struct {
     DayOfWeek   int         //Day of the week (1 ... 7)
 }
 
+/*History record
+****************/
+type HistRec struct {
+    Date        string      //Date
+    Temp        float32     //Temperature
+    Hum         float32     //Humidity
+}
+
 /*Event entry
 *************/
 type EventEntry struct {
@@ -48,9 +56,9 @@ type UsageEntry struct {
     EndDate     string      //End date
 }
 
-/*UsageQuery
-************/
-type UsageQuery struct {
+/*HistQuery
+***********/
+type HistQuery struct {
     StartDate   string      //Start date
     EndDate     string      //End date
 }
