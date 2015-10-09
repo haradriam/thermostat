@@ -20,8 +20,7 @@ func main() {
     //Infinity loop
     for {
         //Read event list
-        eventList, err :=  DbReadEvents()
-        checkErr(err)
+        eventList :=  DbReadEvents()
 
         //Read system information
         sysInfo := GetSysInfo()
@@ -57,8 +56,7 @@ func writeHist() {
     //Infinite loop
     for {
         //Read system information and store it in the database
-        err := DbAddHist(GetSysInfo())
-        checkErr(err)
+        DbAddHist(GetSysInfo())
 
         //Wait for the next record
         time.Sleep(time.Duration(GetConfig().PerRecords) * time.Second)

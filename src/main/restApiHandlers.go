@@ -52,8 +52,7 @@ func RestSetConfig(w http.ResponseWriter, r *http.Request) {
 ***************************************************************************/
 func RestGetEvents(w http.ResponseWriter, r *http.Request) {
     //Request current events
-    eventList, err := DbReadEvents()
-    checkErr(err)
+    eventList := DbReadEvents()
 
     //Encode the list of events and send
     json.NewEncoder(w).Encode(eventList)

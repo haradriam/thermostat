@@ -7,7 +7,7 @@ import (
 
 /*DbAddHist: Add new historic record to the database
 ****************************************************/
-func DbAddHist(info SysInfo) error {
+func DbAddHist(info SysInfo) {
     //Open database
     db, err := sql.Open("sqlite3", GetConfig().DBPath)
     checkErr(err)
@@ -20,13 +20,11 @@ func DbAddHist(info SysInfo) error {
     //Execute the command: insert new record
     _, err = stmt.Exec(info.Time.Date, info.Env.Temp, info.Env.Hum)
     checkErr(err)
-
-    return err
 }
 
 /*DbAddEvents: Add new event list to the database
 *************************************************/
-func DbAddEvents(eventList []EventEntry) error {
+func DbAddEvents(eventList []EventEntry) {
     //Open database
     db, err := sql.Open("sqlite3", GetConfig().DBPath)
     checkErr(err)
@@ -50,13 +48,11 @@ func DbAddEvents(eventList []EventEntry) error {
         _, err = stmt.Exec(eventList[i].StartTemp, eventList[i].Periodic, eventList[i].StartTime, eventList[i].EndTime, eventList[i].Active)
         checkErr(err)
     }
-
-    return err
 }
 
 /*DbReadEvents: Read event list from the database
 *************************************************/
-func DbReadEvents() ([]EventEntry, error) {
+func DbReadEvents() []EventEntry {
     //Open database
     db, err := sql.Open("sqlite3", GetConfig().DBPath)
     checkErr(err)
@@ -79,7 +75,7 @@ func DbReadEvents() ([]EventEntry, error) {
         eventList = append(eventList, event)
     }
 
-    return eventList, err
+    return eventList
 }
 
 /*DbAddUsageRecord: Store the status of the heating in the database

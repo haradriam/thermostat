@@ -7,6 +7,9 @@ import (
 /*StartRestAPI: Start new server and wait for queries
 *****************************************************/
 func StartRestAPI() {
+    fs := http.FileServer(http.Dir("/home/adrian/workspace/thermostat/web/static"))
+    http.Handle("/", fs)
+
     http.HandleFunc("/getinfo", RestGetInfo)        //REST method: Get system information
     http.HandleFunc("/getusage", RestGetUsage)      //REST method: Get usage entries
     http.HandleFunc("/getconfig", RestGetConfig)    //REST method: Get system configuration
