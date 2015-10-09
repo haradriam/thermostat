@@ -41,7 +41,25 @@ func RestGetHist(w http.ResponseWriter, r *http.Request) {
 /*RestGetUsage: Ask for usage entries and encode them into a JSON object
 ************************************************************************/
 func RestGetUsage(w http.ResponseWriter, r *http.Request) {
+    //Read body of HTTP request
+    body, err := ioutil.ReadAll(r.Body)
+    checkErr(err)
 
+    //Create new JSON decoder based on readed HTTP body
+    decoder := json.NewDecoder(strings.NewReader(string(body)))
+
+    //Remove [ ] from the JSON string
+    decoder.Token()
+
+    //Decode received JSON into a history query struct
+    var newQuery HistQuery
+    decoder.Decode(&newQuery)
+
+    //Request history records
+    usageList := DbReadUsageRecord(newQuery.StartDate, newQuery.EndDate)
+
+    //Encode the list of events and send
+    json.NewEncoder(w).Encode(usageList)
 }
 
 /*RestGetConfig: Return system configuration as JSON object

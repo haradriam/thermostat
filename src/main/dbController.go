@@ -47,7 +47,7 @@ func DbReadHist(MinDate string, MaxDate string) []HistRec {
         err = rows.Scan(&record.Date, &record.Temp, &record.Hum)
         checkErr(err)
 
-        //Add event to the list
+        //Add record to the list
         recordList = append(recordList, record)
     }
 
@@ -128,37 +128,41 @@ func DbAddUsageRecord(usageEntry UsageEntry) {
 
 /*DbReadUsageRecord: Read usage entries between dates
 *****************************************************/
-/*func DbReadUsageRecord(query UsageQuery) []UsageEntry {
+func DbReadUsageRecord(MinDate string, MaxDate string) []UsageEntry {
     //Open database
     db, err := sql.Open("sqlite3", GetConfig().DBPath)
     checkErr(err)
     defer db.Close()
 
-    //Command to run in the database: read usage entries between dates
-    first, err := db.Query("SELECT ID FROM USAGE WHERE YEAR >= " +
-                            strconv.Itoa(query.StartYear) +
-                            "AND MONTH >= " +
-                            strconv.Itoa(query.StartMonth) +
-                            "AND DAY >= " +
-                            strconv.Itoa(query.StartDay) +
-                            "LIMIT 1")
+    //Command to run in the database: read records between dates
+    rows, err := db.Query("SELECT * FROM USAGE WHERE (START_DATE >= \"" +
+                            MinDate +
+                            "\" AND END_DATE <= \"" +
+                            MaxDate +
+                            "\") OR (START_DATE < \"" +
+                            MinDate +
+                            "\" AND END_DATE > \"" +
+                            MinDate +
+                            "\") OR (START_DATE < \"" +
+                            MaxDate +
+                            "\" AND END_DATE > \"" +
+                            MaxDate +
+                            "\")")
     checkErr(err)
 
-    last, err := db.Query("SELECT ID FROM USAGE WHERE YEAR >= " +
-                            strconv.Itoa(query.StartYear) +
-                            "AND MONTH >= " +
-                            strconv.Itoa(query.StartMonth) +
-                            "AND DAY >= " +
-                            strconv.Itoa(query.StartDay) +
-                            "LIMIT 1")
-    checkErr(err)
+    var usageList []UsageEntry
+    var usage UsageEntry
 
-    var initId int = 0
-    var endId int = 0
-    err = rows.Scan(&initId)
-    checkErr(err)
+    //Tour the affected rows
+    for rows.Next() {
+        //Read new event
+        err = rows.Scan(&usage.StartDate, &usage.EndDate)
+        checkErr(err)
 
-    var usageEntryList []UsageEntry
+        //Add usage to the list
+        usageList = append(usageList, usage)
+    }
 
-    return usageEntryList
-}*/
+    return usageList
+
+}
