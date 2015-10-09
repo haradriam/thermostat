@@ -8,6 +8,7 @@ import (
 *****************************************************/
 func StartRestAPI() {
     http.HandleFunc("/getinfo", RestGetInfo)        //REST method: Get system information
+    http.HandleFunc("/getusage", RestGetUsage)      //REST method: Get usage entries
     http.HandleFunc("/getconfig", RestGetConfig)    //REST method: Get system configuration
     http.HandleFunc("/setconfig", RestSetConfig)    //REST method: Set system configuration
     http.HandleFunc("/getevents", RestGetEvents)    //REST method: Get list of events

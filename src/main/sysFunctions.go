@@ -15,12 +15,7 @@ func GetSysInfo() SysInfo {
     //Get time information
     timestamp := time.Now()
     time := TimeInfo {
-        Day: time.Time.Day(timestamp),
-        Month: int(time.Time.Month(timestamp)),
-        Year: time.Time.Year(timestamp),
-        Hour: time.Time.Hour(timestamp),
-        Min: time.Time.Minute(timestamp),
-        Sec: time.Time.Second(timestamp),
+        Date: timestamp.Format("2006-01-02 15:04:05"),
         DayOfWeek: int(time.Time.Weekday(timestamp)),
     }
 

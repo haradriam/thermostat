@@ -27,12 +27,7 @@ type EnvInfo struct {
 /*Time information
 ******************/
 type TimeInfo struct {
-    Year        int         //Year number
-    Month       int         //Month of the year
-    Day         int         //Day of the month
-    Hour        int         //Hour
-    Min         int         //Minute
-    Sec         int         //Second
+    Date        string      //Date
     DayOfWeek   int         //Day of the week (1 ... 7)
 }
 
@@ -41,24 +36,21 @@ type TimeInfo struct {
 type EventEntry struct {
     StartTemp   float32     //Temperature to start the heating
     Periodic    string      //Days of the week to repeat this event (0000000)
-    ByTime      int         //Indicates whether the event is time sensitive
-    StartHour   int         //Minimum hour to take this event into account
-    StartMin    int         //Minimum minute to take this event into accotunt
-    EndHour     int         //Maximum hour to take this event into account
-    EndMin      int         //Maximum minute to take this event into account
+    StartTime   string      //Minimum time to take this event into accotunt
+    EndTime     string      //Maximum time to take this event into account
     Active      int         //Indicates if this event is enabled or not
 }
 
 /*Usage entry
 *************/
 type UsageEntry struct {
-    Year        int         //Year number
-    Month       int         //Month of the year
-    Day         int         //Day of the month
-    StartHour   int         //Start hour
-    StartMin    int         //Start minute
-    StartSec    int         //Start second
-    EndHour     int         //End hour
-    EndMin      int         //End minute
-    EndSec      int         //End second
+    StartDate   string      //Start date
+    EndDate     string      //End date
+}
+
+/*UsageQuery
+************/
+type UsageQuery struct {
+    StartDate   string      //Start date
+    EndDate     string      //End date
 }

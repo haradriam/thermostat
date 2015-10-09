@@ -2,6 +2,7 @@ package main
 
 import (
     "time"
+    "strings"
 )
 
 /*main: Main system function
@@ -78,44 +79,9 @@ func checkCondition(event EventEntry, sysInfo SysInfo) bool {
         if event.Periodic[sysInfo.Time.DayOfWeek - 1] == 0 { return false }
     }
 
-    //Check if the event is time sensitive
-    if (event.ByTime == 1) {
-        //Check if the event time configuration is limited to the current day
-        var night bool = false
-        if event.StartHour == event.EndHour {
-            if event.StartMin >= event.EndMin { night = true }
-        } else {
-            if event.StartHour > event.EndHour { night = true }
-        }
-
-        //Check if the start time is higher than current time
-        enaStart := checkHour(event.StartHour, event.StartMin, sysInfo.Time.Hour, sysInfo.Time.Min)
-        //Check if the stop time is higher than current time
-        enaStop := checkHour(event.EndHour, event.EndMin, sysInfo.Time.Hour, sysInfo.Time.Min)
-
-        //Decide if the time condition to enable to heating is met
-        if night == false {
-            if enaStart == enaStop { return false }
-        } else {
-            if enaStart != enaStop { return false }
-        }
-    }
-
-    return true
-}
-
-/*checkHour: Check if configured time is highed than the current one
-********************************************************************/
-func checkHour(ConfHour int, ConfMin int, SysHour int, SysMin int) bool {
-    if ConfHour < SysHour {
-        return false
-    }
-
-    if ConfHour == SysHour {
-        if ConfMin < SysMin {
-            return false
-        }
-    }
+    sep := strings.Split(sysInfo.Time.Date, " ");
+    if ((event.StartTime != "") && (event.StartTime < sep[1])) { return false }
+    if ((event.EndTime != "") && (event.EndTime > sep[1])) { return false }
 
     return true
 }

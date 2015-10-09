@@ -14,6 +14,12 @@ func RestGetInfo(w http.ResponseWriter, r *http.Request) {
     json.NewEncoder(w).Encode(GetSysInfo())
 }
 
+/*RestGetUsage: Ask for usage entries and encode them into a JSON object
+************************************************************************/
+func RestGetUsage(w http.ResponseWriter, r *http.Request) {
+
+}
+
 /*RestGetConfig: Return system configuration as JSON object
 ***********************************************************/
 func RestGetConfig(w http.ResponseWriter, r *http.Request) {

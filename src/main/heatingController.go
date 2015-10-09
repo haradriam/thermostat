@@ -8,12 +8,7 @@ var heatingStatus bool = false
 func StartHeating() {
     //Read system information and setup new usage entry
     sysInfo := GetSysInfo()
-    usageEntry.Year = sysInfo.Time.Year
-    usageEntry.Month = sysInfo.Time.Month
-    usageEntry.Day = sysInfo.Time.Day
-    usageEntry.StartHour = sysInfo.Time.Hour
-    usageEntry.StartMin = sysInfo.Time.Min
-    usageEntry.StartSec = sysInfo.Time.Sec
+    usageEntry.StartDate = sysInfo.Time.Date
 
     //TODO: Start heating
     heatingStatus = true
@@ -24,24 +19,7 @@ func StartHeating() {
 func StopHeating() {
     //Read system information and store the usage entry
     sysInfo := GetSysInfo()
-    if sysInfo.Time.Day != usageEntry.Day {
-        //Heating started and stopped in different days
-        usageEntry.EndHour = 23
-        usageEntry.EndMin = 59
-        usageEntry.EndSec = 59
-
-        DbAddUsageRecord(usageEntry)
-
-        usageEntry.Year = sysInfo.Time.Year
-        usageEntry.Month = sysInfo.Time.Month
-        usageEntry.Day = sysInfo.Time.Day
-        usageEntry.StartHour = 00
-        usageEntry.StartMin = 00
-        usageEntry.StartSec = 00
-    }
-    usageEntry.EndHour = sysInfo.Time.Hour
-    usageEntry.EndMin = sysInfo.Time.Min
-    usageEntry.EndSec = sysInfo.Time.Sec
+    usageEntry.EndDate = sysInfo.Time.Date
 
     DbAddUsageRecord(usageEntry)
 
