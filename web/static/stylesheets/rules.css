@@ -1,0 +1,6 @@
+#separator {height: 10px;}
+#event_table {margin: 0 auto; width: 90%; text-align: center;}
+#event_table_th {height: 20px; contenteditable:"true";}
+.event_table_img {height: 20px; width: auto;}
+.event_table_editing {background-color: #99FF66;}
+.event_table_notediting {display: none;}

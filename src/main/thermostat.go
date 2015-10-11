@@ -74,7 +74,7 @@ func checkCondition(event EventEntry, sysInfo SysInfo) bool {
 
     //Check if the event is periodic and, if so, if it is applicable to the current day of week
     if (event.Periodic != "0000000") {
-        if event.Periodic[sysInfo.Time.DayOfWeek - 1] == 0 { return false }
+        if (event.Periodic[sysInfo.Time.DayOfWeek] - 1 == 0) { return false }
     }
 
     sep := strings.Split(sysInfo.Time.Date, " ");

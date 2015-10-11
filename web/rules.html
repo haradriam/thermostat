@@ -1,0 +1,23 @@
+{{define "title"}}
+Termostato: Reglas
+{{end}}
+
+{{define "include"}}
+<script src="/static/js/rules.js"></script>
+<link rel="stylesheet" href="/static/stylesheets/rules.css">
+{{end}}
+
+{{define "header_title"}}Reglas{{end}}
+
+{{define "body"}}
+<div id="separator"></div>
+<table id="event_table" border=1>
+    <tr>
+        <th id="event_table_th">Temp</th>
+        <th id="event_table_th">Repetir</th>
+        <th id="event_table_th">Inicio</th>
+        <th id="event_table_th">Fin</th>
+        <th id="event_table_th" colspan="4">Activo</th>
+    </tr>
+</table>
+{{end}}

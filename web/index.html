@@ -4,10 +4,21 @@ Termostato
 
 {{define "include"}}
 <link rel="stylesheet" href="/static/stylesheets/buttons.css">
+<link rel="stylesheet" href="/static/stylesheets/index.css">
 {{end}}
 
 {{define "header_title"}}Termostato{{end}}
 
 {{define "body"}}
-<a href="#" class="myButton">blue</a>
+<table id="button_table">
+    <tr>
+        <td><a href="/rules.html" class="myButton">Reglas</a></td>
+    </tr>
+    <tr>
+        <td><a href="statistics.html" class="myButton">Estadisticas</a></td>
+    </tr>
+    <tr>
+        <td><a href="configuration.html" class="myButton">Configuracion</a></td>
+    </tr>
+</table>
 {{end}}
